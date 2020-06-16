@@ -5,5 +5,5 @@ This is a simple python script to make dots rain down the terminal screen. It si
 
 ## To run
 ```
-python pDots.py
+python3 pDots.py
 ```
