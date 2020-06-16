@@ -5,6 +5,7 @@ from random import randrange
 import time
 from time import sleep
 import math
+import argparse
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -30,7 +31,7 @@ def main(stdscr):
     while(True):
         time2=time.time()
         sleepm = interval-(time2-now1)
-        stdscr.addstr(0,0,'sleeping {}'.format(sleepm))
+        #stdscr.addstr(0,0,'sleeping {}'.format(sleepm))
         sleep(sleepm)
         now1=time.time()
 
@@ -53,10 +54,16 @@ def main(stdscr):
             try:
                 stdscr.addstr(int(thex), T[1], u'\u2585'.encode('UTF-8'))
             except:
-                print "caught it"
+                print("caught it")
 
         stdscr.refresh()
         
     stdscr.getkey()
+
+#parse arguments
+parser = argparse.ArgumentParser(description='Rainging Dots effect in terminal')
+parser.add_argument('--bounce', dest='effect', action='store_true',
+               help='should play option effect instead')
+args = parser.parse_args()
   
 wrapper(main)
