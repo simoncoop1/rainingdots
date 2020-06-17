@@ -6,4 +6,14 @@ This is a simple python script to make dots rain down the terminal screen. It si
 ## To run
 ```
 python3 pDots.py
+
 ```
+for an effect
+```
+python3 pDots.py --effect
+```
+
+for help
+
+```
+python3 pDots.py -h
