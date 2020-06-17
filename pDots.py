@@ -60,10 +60,73 @@ def main(stdscr):
         
     stdscr.getkey()
 
+def bounce(stdscr):
+    # Clear screen
+    stdscr.clear()
+
+    timeac = 0
+    now1=time.time()
+    startt = now1
+    interval=0.033
+
+
+    startrect=(0,0)
+
+    ##coords to draw
+    points = [(0,0)]
+
+    startrect=(0,0)
+    
+    while((startrect[0]<=(stdscr.getmaxyx()[0]/2)) & (startrect[1]<=(stdscr.getmaxyx()[1]/2))):
+        
+        points.append(startrect)
+        while(points[-1][1]+1 < stdscr.getmaxyx()[1]-1-startrect[1]):
+            points.append((points[-1][0],points[-1][1]+1))
+        
+        while(points[-1][0]+1 < stdscr.getmaxyx()[0]-startrect[0]):
+            points.append((points[-1][0]+1,points[-1][1]))
+
+        while(points[-1][1]-1 >= startrect[1]):
+            points.append((points[-1][0],points[-1][1]-1))
+
+        while(points[-1][0]-1 > startrect[0]):
+            points.append((points[-1][0]-1,points[-1][1]))
+
+        startrect=(startrect[0]+1,startrect[1]+1)             
+
+    pointsC = 0
+
+    #raise NameError(str(points) + str(pointsC))
+    
+    while(True):
+        time2=time.time()
+        sleepm = interval-(time2-now1)
+        #stdscr.addstr(0,0,'sleeping {}'.format(sleepm))
+        sleep(sleepm)
+        now1=time.time()
+
+        timeac=timeac+interval
+
+        stdscr.clear()
+
+        stdscr.addstr(points[pointsC][0], points[pointsC][1], u'\u2585'.encode('UTF-8'))
+        #stdscr.addstr(0, 20, u'\u2585'.encode('UTF-8'))
+        pointsC+=1
+        if(len(points)<=pointsC):
+            pointsC=0
+
+        stdscr.refresh()
+        
+    stdscr.getkey()
+    
+
 #parse arguments
 parser = argparse.ArgumentParser(description='Rainging Dots effect in terminal')
-parser.add_argument('--bounce', dest='effect', action='store_true',
+parser.add_argument('--effect', dest='effect', action='store_true',
                help='should play option effect instead')
 args = parser.parse_args()
-  
-wrapper(main)
+ 
+if(args.effect): 
+    wrapper(bounce)
+else:
+    wrapper(main)
