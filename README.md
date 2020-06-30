@@ -13,6 +13,12 @@ for an effect
 python3 pDots.py --effect
 ```
 
+
+for a bouncing effect
+```
+python3 pDots.py --bounce
+```
+
 for help
 
 ```
